@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { client } from 'Services/client';
 import { store } from 'Stores/index';
 import { GlobalStyle } from 'Styles/global';
+import 'out/i18n.ts';
 
 const INCLUDE_NAVBAR: string[] = ['/'];
 
