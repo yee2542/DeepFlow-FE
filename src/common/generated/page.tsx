@@ -7,6 +7,61 @@ import { QueryHookOptions, useQuery } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 import type React from 'react';
 import { getApolloClient } from 'src/common/services/client';
+export async function getServerPageGetDashboardData(
+  options: Omit<Apollo.QueryOptions<Types.GetDashboardDataQueryVariables>, 'query'>,
+  ctx?: any,
+) {
+  const apolloClient = getApolloClient(ctx);
+
+  const data = await apolloClient.query<Types.GetDashboardDataQuery>({
+    ...options,
+    query: Operations.GetDashboardDataDocument,
+  });
+
+  const apolloState = apolloClient.cache.extract();
+
+  return {
+    props: {
+      apolloState: apolloState,
+      data: data?.data,
+      error: data?.error ?? data?.errors ?? null,
+    },
+  };
+}
+export const useGetDashboardData = (
+  optionsFunc?: (
+    router: NextRouter,
+  ) => QueryHookOptions<
+    Types.GetDashboardDataQuery,
+    Types.GetDashboardDataQueryVariables
+  >,
+) => {
+  const router = useRouter();
+  const options = optionsFunc ? optionsFunc(router) : {};
+  return useQuery(Operations.GetDashboardDataDocument, options);
+};
+export type PageGetDashboardDataComp = React.FC<{
+  data?: Types.GetDashboardDataQuery;
+  error?: Apollo.ApolloError;
+}>;
+export const withPageGetDashboardData = (
+  optionsFunc?: (
+    router: NextRouter,
+  ) => QueryHookOptions<
+    Types.GetDashboardDataQuery,
+    Types.GetDashboardDataQueryVariables
+  >,
+) => (WrappedComponent: PageGetDashboardDataComp): NextPage => (props) => {
+  const router = useRouter();
+  const options = optionsFunc ? optionsFunc(router) : {};
+  const { data, error } = useQuery(Operations.GetDashboardDataDocument, options);
+  return <WrappedComponent {...props} data={data} error={error} />;
+};
+export const ssrGetDashboardData = {
+  getServerPage: getServerPageGetDashboardData,
+  withPage: withPageGetDashboardData,
+  usePage: useGetDashboardData,
+};
 export async function getServerPageGetFileImageInsight(
   options: Omit<Apollo.QueryOptions<Types.GetFileImageInsightQueryVariables>, 'query'>,
   ctx?: any,

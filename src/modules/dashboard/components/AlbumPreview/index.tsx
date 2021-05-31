@@ -28,7 +28,7 @@ const AlbumPreview: React.FC<AlbumPreviewProps> = (props) => {
           <b>{albumName}</b>
         </span>
         <br />
-        <span>{albumLength} items</span>
+        {/* <span>{albumLength} items</span> */}
         <br />
       </AlbumDetailsWrapper>
       <LabelWrapper>

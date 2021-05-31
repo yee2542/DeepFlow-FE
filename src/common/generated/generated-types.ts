@@ -20,12 +20,24 @@ export type AppModel = {
   status: Scalars['Int'];
 };
 
+export type DataDashboard = {
+  __typename?: 'DataDashboard';
+  total: Scalars['Float'];
+  today: Scalars['Float'];
+};
+
 export type Dimension = {
   __typename?: 'Dimension';
   original_width: Scalars['Float'];
   original_height: Scalars['Float'];
   extract_width: Scalars['Float'];
   extract_height: Scalars['Float'];
+};
+
+export type FileDashboardDto = {
+  __typename?: 'FileDashboardDTO';
+  photo: DataDashboard;
+  video: DataDashboard;
 };
 
 export type FileDurationMetaDto = {
@@ -214,9 +226,11 @@ export type Query = {
   GetUserBySession?: Maybe<UserWithId>;
   Users: Array<UserWithId>;
   GetUserTasks: UserTasksDto;
+  GetRecentFileInsightDashboard: Array<FileInsightDto>;
   GetFileImageInsight: FileInsightDto;
   GetFileVideoInsight: FileVideoInsightDto;
   GetSearch: SearchDto;
+  GetFileDashboard: FileDashboardDto;
   GetFileById: FileModelDto;
   GetRecentFiles: RecentFiles;
 };
@@ -234,6 +248,10 @@ export type QueryGetUserTasksArgs = {
   userId: Scalars['String'];
 };
 
+export type QueryGetRecentFileInsightDashboardArgs = {
+  owner: Scalars['String'];
+};
+
 export type QueryGetFileImageInsightArgs = {
   fileId: Scalars['String'];
 };
@@ -244,6 +262,10 @@ export type QueryGetFileVideoInsightArgs = {
 
 export type QueryGetSearchArgs = {
   word: Scalars['String'];
+  owner: Scalars['String'];
+};
+
+export type QueryGetFileDashboardArgs = {
   owner: Scalars['String'];
 };
 
@@ -370,6 +392,28 @@ export enum UserZoneEnumSession {
 export enum ZoneEnum {
   Th = 'TH',
 }
+
+export type GetDashboardDataQueryVariables = Exact<{
+  owner: Scalars['String'];
+}>;
+
+export type GetDashboardDataQuery = { __typename?: 'Query' } & {
+  GetRecentFileInsightDashboard: Array<
+    { __typename?: 'FileInsightDto' } & {
+      fileMeta: { __typename?: 'FileInsightMeta' } & Pick<
+        FileInsightMeta,
+        '_id' | 'original_filename' | 'type' | 'uri' | 'uri_thumbnail'
+      >;
+      insights: Array<
+        { __typename?: 'InsightDTO' } & Pick<InsightDto, 'model' | 'keyword'>
+      >;
+    }
+  >;
+  GetFileDashboard: { __typename?: 'FileDashboardDTO' } & {
+    video: { __typename?: 'DataDashboard' } & Pick<DataDashboard, 'today' | 'total'>;
+    photo: { __typename?: 'DataDashboard' } & Pick<DataDashboard, 'today' | 'total'>;
+  };
+};
 
 export type GetFileImageInsightQueryVariables = Exact<{
   fileId: Scalars['String'];
@@ -622,6 +666,80 @@ export type UpdateUserMutation = { __typename?: 'Mutation' } & {
   > & { oauth: { __typename?: 'UserToken' } & Pick<UserToken, 'provider' | 'token'> };
 };
 
+export const GetDashboardDataDocument = gql`
+  query GetDashboardData($owner: String!) {
+    GetRecentFileInsightDashboard(owner: $owner) {
+      fileMeta {
+        _id
+        original_filename
+        type
+        uri
+        uri_thumbnail
+      }
+      insights {
+        model
+        keyword
+      }
+    }
+    GetFileDashboard(owner: $owner) {
+      video {
+        today
+        total
+      }
+      photo {
+        today
+        total
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetDashboardDataQuery__
+ *
+ * To run a query within a React component, call `useGetDashboardDataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDashboardDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDashboardDataQuery({
+ *   variables: {
+ *      owner: // value for 'owner'
+ *   },
+ * });
+ */
+export function useGetDashboardDataQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetDashboardDataQuery,
+    GetDashboardDataQueryVariables
+  >,
+) {
+  return Apollo.useQuery<GetDashboardDataQuery, GetDashboardDataQueryVariables>(
+    GetDashboardDataDocument,
+    baseOptions,
+  );
+}
+export function useGetDashboardDataLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetDashboardDataQuery,
+    GetDashboardDataQueryVariables
+  >,
+) {
+  return Apollo.useLazyQuery<GetDashboardDataQuery, GetDashboardDataQueryVariables>(
+    GetDashboardDataDocument,
+    baseOptions,
+  );
+}
+export type GetDashboardDataQueryHookResult = ReturnType<typeof useGetDashboardDataQuery>;
+export type GetDashboardDataLazyQueryHookResult = ReturnType<
+  typeof useGetDashboardDataLazyQuery
+>;
+export type GetDashboardDataQueryResult = Apollo.QueryResult<
+  GetDashboardDataQuery,
+  GetDashboardDataQueryVariables
+>;
 export const GetFileImageInsightDocument = gql`
   query GetFileImageInsight($fileId: String!) {
     GetFileImageInsight(fileId: $fileId) {

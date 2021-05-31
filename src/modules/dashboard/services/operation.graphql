@@ -1,0 +1,26 @@
+query GetDashboardData($owner: String!) {
+  GetRecentFileInsightDashboard(owner: $owner) {
+    fileMeta {
+      _id
+      original_filename
+      type
+      uri
+      uri_thumbnail
+    }
+    insights {
+      model
+      keyword
+    }
+  }
+
+  GetFileDashboard(owner: $owner) {
+    video {
+      today
+      total
+    }
+    photo {
+      today
+      total
+    }
+  }
+}
