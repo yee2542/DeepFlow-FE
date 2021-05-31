@@ -820,9 +820,11 @@ export const GetRecentFilesDocument = gql`
           type
           createAt
           original_filename
-          updateAt
           uri
           uri_thumbnail
+          createAt
+          updateAt
+          type
         }
       }
     }

@@ -83,6 +83,14 @@ const Lightbox: React.FC<LightboxPropsType> = (props) => {
     }
   }, [loading, image._id]);
 
+  const mockInsight = {
+    width: 600,
+    height: 600,
+    label: [{ result: 'dog', xMin: 0, xMax: 100, yMin: 0, yMax: 100 }],
+    location: 'Paris',
+    id: '44545',
+  };
+
   function handleCurrentImageSize() {
     if (ref.current) {
       setCurrentImageSize({
@@ -114,6 +122,7 @@ const Lightbox: React.FC<LightboxPropsType> = (props) => {
       setScaleBorder(3 * scaleX);
     }
   }, [currentImageSize, detailCardVisible]);
+
 
   const allTags = insights.insights
     .map((el) => el.keyword)

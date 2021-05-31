@@ -7,9 +7,11 @@ query GetRecentFiles($owner: String!, $limit: Int, $skip: Int) {
         type
         createAt
         original_filename
-        updateAt
         uri
         uri_thumbnail
+        createAt
+        updateAt
+        type
       }
     }
   }

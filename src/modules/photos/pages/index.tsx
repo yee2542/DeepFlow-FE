@@ -139,7 +139,7 @@ const AllPhotosPages: React.FC = () => {
                   key={image._id + '-unfilter'}
                   createAt={dayjs(image.createAt).toDate()}
                   selected={false}
-                  onClick={() => openLightbox(image)}
+                  onClick={() => openLightbox(file)}
                 />
               )),
             )}

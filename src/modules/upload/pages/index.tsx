@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import UploadProgress from '../components/UploadProgress';
 import { StoresState } from 'Stores/index';
 import { getUploadProgress, uploadFileData } from '../reducer/uploadReducer/actions';
-import { Album, FileUpload } from '../model/types';
+import { FileUpload } from '../model/types';
 import { v4 as uuidv4 } from 'uuid';
 import { uploadActions } from '../reducer/uploadReducer';
 import SelectFileButton from '../components/SelectFileButton';
@@ -14,6 +14,7 @@ import { WrapperImage } from '../../photos/pages/styled';
 import UploadButton from '../components/UploadButton';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { FileListResponseDTO } from 'fluentsearch-types';
+import { Album } from '../../album/reducer/albumReducer/types';
 import { useRouter } from 'next/router';
 
 const UploadPage: React.FC = () => {
@@ -26,11 +27,15 @@ const UploadPage: React.FC = () => {
     name: '',
     id: '',
     albumFiles: [],
+    label: [],
+    thumbnail_uri: '',
+    owner: '',
   });
   const [images, setImages] = useState<string[]>([]);
   const [filesToUpload, setFilesToUpload] = useState<FileUpload[]>([]);
   const [filesResponse, setFilesResponse] = useState<FileListResponseDTO[]>([]);
 
+  const owner = useSelector((state: StoresState) => state.user.user.id);
   const group = useSelector((state: StoresState) => state.upload.present.group);
   const pendingQueue = useSelector((state: StoresState) => state.upload.pendingQueue);
   const fulfillQueue = useSelector((state: StoresState) => state.upload.fulfillQueue);
@@ -70,7 +75,7 @@ const UploadPage: React.FC = () => {
   };
 
   useEffect(() => {
-    setAlbum({ ...album, id: uuidv4() });
+    setAlbum({ ...album, id: uuidv4(), owner: owner });
   }, []);
 
   useEffect(() => {

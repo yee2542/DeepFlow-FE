@@ -5,7 +5,7 @@ import RouterGuard from '../common/components/RouterGuard';
 const AllPhotos: React.FC = () => {
   return (
     <RouterGuard>
-      <AllPhotosPage />
+      <AllPhotosPage data={data} />
     </RouterGuard>
   );
 };
