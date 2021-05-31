@@ -6,6 +6,7 @@ import {
   InboxOutlined,
   PictureOutlined,
   DeleteOutlined,
+  PlaySquareOutlined,
 } from '@ant-design/icons';
 import React from 'react';
 
@@ -22,6 +23,7 @@ const IconSelector: React.FC<IconSelectorProps> = (props: IconSelectorProps) => 
     InboxOutlined: <InboxOutlined />,
     PictureOutlined: <PictureOutlined />,
     DeleteOutlined: <DeleteOutlined />,
+    PlaySquareOutlined: <PlaySquareOutlined />,
   };
 
   const getIcon = (type: string) => {

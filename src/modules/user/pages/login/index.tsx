@@ -75,12 +75,6 @@ const LoginPage: React.FC<Props> = (props) => {
       );
       router.push('/dashboard');
     }
-    // } else {
-    //   console.log(error);
-    //   if (error) {
-    //     dispatch(userActions.setMessage(error?.message));
-    //   }
-    // }
   }, [data, error, router, dispatch]);
 
   const onFinish: FormFinishValue = (values: UserLoginInputDto) => {

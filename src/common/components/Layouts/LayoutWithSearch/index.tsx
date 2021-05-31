@@ -103,7 +103,7 @@ const HeaderWrapper: React.FC = () => {
 };
 
 const LayoutWithSearch: React.FC<AllPhotoLayoutProps> = (props) => {
-  const { title, children } = props;
+  const { title, children, border = true } = props;
   const router = useRouter();
 
   return (
@@ -115,9 +115,9 @@ const LayoutWithSearch: React.FC<AllPhotoLayoutProps> = (props) => {
           {router.pathname === '/dashboard' ? (
             <ContentWithPadding>{children}</ContentWithPadding>
           ) : (
-            <ContentWithPadding padding>
+            <ContentWithPadding padding={true}>
               <h1>{title}</h1>
-              <hr />
+              {border ? <hr /> : null}
               {children}
             </ContentWithPadding>
           )}

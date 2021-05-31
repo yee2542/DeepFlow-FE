@@ -120,6 +120,7 @@ const AllPhotosPages: React.FC = () => {
             previews?.map((preview: RecentPreviews) =>
               preview.files
                 ?.filter((f) => (ids.length != 0 ? ids.includes(f._id) : true))
+                .filter((el) => el.type.includes('image'))
                 .map((image: RecentFile) => (
                   <ThumbnailPhoto
                     src={image.uri_thumbnail}
@@ -133,15 +134,17 @@ const AllPhotosPages: React.FC = () => {
 
           {ids.length == 0 &&
             previews?.map((preview: RecentPreviews) =>
-              preview.files?.map((image: RecentFile) => (
-                <ThumbnailPhoto
-                  src={image.uri_thumbnail}
-                  key={image._id + '-unfilter'}
-                  createAt={dayjs(image.createAt).toDate()}
-                  selected={false}
-                  onClick={() => openLightbox(image)}
-                />
-              )),
+              preview.files
+                ?.filter((el) => el.type.includes('image'))
+                .map((image: RecentFile) => (
+                  <ThumbnailPhoto
+                    src={image.uri_thumbnail}
+                    key={image._id + '-unfilter'}
+                    createAt={dayjs(image.createAt).toDate()}
+                    selected={false}
+                    onClick={() => openLightbox(image)}
+                  />
+                )),
             )}
         </WrapperImage>
       </InfiniteScroll>

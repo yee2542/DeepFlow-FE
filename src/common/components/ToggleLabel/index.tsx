@@ -3,10 +3,10 @@ import { ToggelLabelWrapper } from './styled';
 import { ToggleLabelProps } from './types';
 
 const ToggleLabel: React.FC<ToggleLabelProps> = (props) => {
-  const { children, selected = false, onClick } = props;
+  const { label, selected = false, onLabelClick } = props;
   return (
-    <ToggelLabelWrapper selected={selected} onClick={() => onClick()}>
-      {children}
+    <ToggelLabelWrapper selected={selected} onClick={() => onLabelClick(label)}>
+      {label}
     </ToggelLabelWrapper>
   );
 };

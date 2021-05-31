@@ -16,6 +16,13 @@ export const PHOTOS_SIDEBAR_CONSTANT: MenuType[] = [
     icon: 'PictureOutlined',
   },
   {
+    key: '3',
+    label: 'Videos',
+    link: ['videos'],
+    active: false,
+    icon: 'PlaySquareOutlined',
+  },
+  {
     key: '4',
     label: 'Tasks',
     link: ['task'],

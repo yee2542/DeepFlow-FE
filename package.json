@@ -21,18 +21,23 @@
   "dependencies": {
     "@apollo/client": "^3.3.6",
     "@reduxjs/toolkit": "^1.4.0",
+    "@types/uuid": "^8.3.0",
     "antd": "^4.7.3",
     "axios": "^0.21.1",
     "dayjs": "^1.10.3",
     "filesize": "^6.3.0",
     "fluentsearch-types": "^0.6.1",
     "graphql": "^15.4.0",
+    "konva": "^7.2.5",
     "next": "10.0.4",
     "react": "16.14",
     "react-dom": "16.14",
+    "react-konva": "16.13.0-6",
     "react-redux": "7.2.2",
     "redux": "^4.0.5",
-    "styled-components": "^5.2.1"
+    "screenfull": "^5.1.0",
+    "styled-components": "^5.2.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
@@ -79,6 +84,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "factory.ts": "^0.5.1",
     "faker": "^5.1.0",
+    "filesize": "^6.3.0",
     "graphql-codegen-apollo-next-ssr": "^1.6.1",
     "identity-obj-proxy": "^3.0.0",
     "import-local": "^3.0.2",

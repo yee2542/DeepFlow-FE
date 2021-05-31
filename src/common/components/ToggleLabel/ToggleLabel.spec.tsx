@@ -6,23 +6,19 @@ describe('Component/ToggleLabel test', () => {
   const mockOnClick = jest.fn();
   it('ToggleLabel children render test', () => {
     const ToggleLabelWithChild = shallow(
-      <ToggleLabel onClick={mockOnClick}>Label</ToggleLabel>,
+      <ToggleLabel onLabelClick={mockOnClick} selected={false} label={'Label'} />,
     );
     expect(ToggleLabelWithChild.text()).toEqual('Label');
   });
 
   it('ToggleLabel selected props test', () => {
     const ToggleLabelSelectedFalse = shallow(
-      <ToggleLabel onClick={mockOnClick} selected={false}>
-        Label
-      </ToggleLabel>,
+      <ToggleLabel onLabelClick={mockOnClick} selected={false} label={'Label'} />,
     );
     expect(ToggleLabelSelectedFalse.prop('selected')).toBe(false);
 
     const ToggleLabelSelectedTrue = shallow(
-      <ToggleLabel onClick={mockOnClick} selected>
-        Label
-      </ToggleLabel>,
+      <ToggleLabel onLabelClick={mockOnClick} selected={true} label={'Label'} />,
     );
     expect(ToggleLabelSelectedTrue.prop('selected')).toBe(true);
   });

@@ -8,4 +8,5 @@ export type ImageProps = {
 export type AllPhotoLayoutProps = {
   children?: ReactNode;
   title?: string;
+  border?: boolean;
 };
